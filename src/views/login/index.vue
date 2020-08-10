@@ -7,7 +7,9 @@
             <!-- 卡片 -->
             <el-card class="box-card" style="text-align:center;">
               <div slot="header" class="clearfix" style="text-align:center;">
-                <span style="font-weight:bold;font-size: 20px;" class="text-secondary">UNI-ADMIN</span>
+                <span style="font-weight:bold;font-size: 20px;" class="text-secondary">
+                  {{$conf.logo}}
+                </span>
               </div>
               <el-form ref="ruleForm" :model="ruleForm" :rules="rules">
                 <el-form-item prop="username">
@@ -59,7 +61,7 @@ export default {
 			 if (!e) return;
 			 //否则，提交表单
 			 this.$router.push({name: 'index'});  //跳转到name为index的页面
-		  })
+		  });
 	  }
   },
 };
