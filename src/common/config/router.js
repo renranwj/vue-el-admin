@@ -18,14 +18,18 @@ let routes = [
                 //   name: 'index',
                 // component: () => import('../../views/index/index.vue'),
                 component: 'index/index',
-                meta: {title: '后台首页'}
+                meta: { title: '后台首页' }
             },
             {
                 // path: '/shop/goods/list',
                 // name: 'list',
                 // component: () => import('../../views/shop/goods/list.vue'),
                 component: 'shop/goods/list',
-                meta: {title: '商品列表'}
+                meta: { title: '商品列表' }
+            },
+            {
+                component: 'shop/pic/list',
+                meta: { title: '相册列表' }
             }
         ]
     },
@@ -35,7 +39,7 @@ let routes = [
         //这个样子也可以直接引进来组件
         // component: () => import('../../views/login/index.vue'),
         component: 'login/index',
-        meta: {title: '登录页面'}
+        meta: { title: '登录页面' }
     },
     {
         path: '*',

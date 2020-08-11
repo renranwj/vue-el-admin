@@ -10,14 +10,17 @@ export default {
                     {
                         icon: "el-icon-s-home",
                         name: "后台首页",
+                        pathName: 'index'
                     },
                     {
                         icon: "el-icon-s-marketing",
                         name: "相册管理",
+                        pathName: 'shop_pic_list'
                     },
                     {
                         icon: "el-icon-s-unfold",
                         name: "商品列表",
+                        pathName: 'shop_goods_list'
                     },
                 ],
             },
@@ -28,6 +31,7 @@ export default {
                     {
                         icon: "el-icon-s-home",
                         name: "商品列表",
+                        pathName: 'shop_goods_list',
                     },
                     {
                         icon: "el-icon-s-marketing",
