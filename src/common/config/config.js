@@ -15,7 +15,7 @@ export default {
                     {
                         icon: "el-icon-s-marketing",
                         name: "相册管理",
-                        pathName: 'shop_pic_list'
+                        pathName: 'image'
                     },
                     {
                         icon: "el-icon-s-unfold",

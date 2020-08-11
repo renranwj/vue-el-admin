@@ -32,7 +32,11 @@
             <el-button style="float: right; padding: 3px 0" type="text">{{item.desc}}</el-button>
           </div>
           <el-row :gutter="20">
-            <el-col :span="item.list.length|getSize" v-for="(item1, index) in item.list" :key="index">
+            <el-col
+              :span="item.list.length|getSize"
+              v-for="(item1, index) in item.list"
+              :key="index"
+            >
               <button class="btn btn-light" style="width: 100%;margin-bottom:1px;">
                 <h4>{{item1.num}}</h4>
                 <small style="color:#909399;">{{item1.desc}}</small>
@@ -44,15 +48,54 @@
       <el-col :span="12" style="margin-top: 20px;height:370px;">
         <!-- 统计图 -->
         <el-card class="box-card" style="height:370px;" shadow="never">
+          <!-- 统计图容器 -->
+          <div ref="myChart" style="width:100%;height:270px;"></div>
+        </el-card>
+      </el-col>
+    </el-row>
+
+    <!-- 销售 -->
+    <el-row :gutter="20" style="margin-top:20px;">
+      <el-col :span="12">
+        <el-card class="box-card" shadow="never">
           <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+            <span>销售情况统计</span>
+            <el-button style="float: right; padding: 3px 0" type="text">按周期统计商家店铺的订单量和订单金额</el-button>
           </div>
-		<!-- 统计图容器 -->
-		<div ref="myChart" style="width:100%;height:270px;">
+          <!-- bootstrap里面的媒体对象 -->
+          <div
+            class="media border"
+            style="align-items:center;margin-top:15px;"
+            v-for="(item, index) in sale"
+            :key="index"
+          >
+            <span class="bg-light border-right" style="padding: 23px 14px;">{{item.title}}</span>
+            <div class="media-body">
+              <div class="border-bottom" style="padding:0 0 5px 15px;">
+                <span>订单金额（元）</span>
+                {{item.money}}
+              </div>
+              <div style="padding: 5px 0 0 15px;">
+                <span>订单量（件）</span>
+                {{item.num}}
+              </div>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card class="box-card" shadow="never">
+          <div slot="header" class="clearfix">
+            <span>单品销售排名</span>
+            <el-button style="float: right; padding: 3px 0" type="text">按周期统计商家店铺的订单量和订单金额</el-button>
+          </div>
 
-		</div>
-
+          <!-- 表头固定的表格 -->
+          <el-table :data="tableData" height="200" border style="width: 100%">
+            <el-table-column type="index" width="50" align="center"></el-table-column>
+            <el-table-column prop="name" label="商品信息" align="center"></el-table-column>
+            <el-table-column prop="num" label="销量" width="50" align="center"></el-table-column>
+          </el-table>
         </el-card>
       </el-col>
     </el-row>
@@ -60,10 +103,36 @@
 </template>
 
 <script>
-import echarts from 'echarts'
+import echarts from "echarts";
 export default {
   data() {
     return {
+      tableData: [
+		  {
+			  name: '小天鹅（LittleSwan）滚筒洗衣机...',
+			  num: '233'
+		  },
+		   {
+			  name: '小天鹅（LittleSwan）滚筒洗衣机...',
+			  num: '233'
+		  },
+		   {
+			  name: '小天鹅（LittleSwan）滚筒洗衣机...',
+			  num: '233'
+		  },
+		   {
+			  name: '小天鹅（LittleSwan）滚筒洗衣机...',
+			  num: '233'
+		  },
+		   {
+			  name: '小天鹅（LittleSwan）滚筒洗衣机...',
+			  num: '233'
+		  },
+		   {
+			  name: '小天鹅（LittleSwan）滚筒洗衣机...',
+			  num: '233'
+		  },
+	  ],
       count: [
         {
           icon: "el-icon-user-solid",
@@ -140,46 +209,123 @@ export default {
             {
               num: 3,
               desc: "待售后",
-			},
-			
+            },
           ],
+        },
+      ],
+      sale: [
+        {
+          title: "昨日销量",
+          money: "4234",
+          num: "43",
+        },
+        {
+          title: "本月销量",
+          money: "1234",
+          num: "22",
         },
       ],
     };
   },
   filters: {
-	getSize (total) {
-		return 24/total;
-	}
+    getSize(total) {
+      return 24 / total;
+    },
   },
   created() {},
   mounted() {
-	  //dom渲染完成之后，画统计图
-	  this.drawChart();
+    //dom渲染完成之后，画统计图
+    this.drawChart();
   },
   methods: {
-	  drawChart () {
-		//   基于dom初始化eChart实例；
-		  let myChart = echarts.init(this.$refs.myChart);
-		  // 指定图表的配置项及数据
-		let options = {
-			tooltip: {},
-            legend: {
-                data:['销量']
+    drawChart() {
+      //   基于dom初始化eChart实例；
+      let myChart = echarts.init(this.$refs.myChart);
+      // 指定图表的配置项及数据
+      let options = {
+        title: {},
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "cross",
+            label: {
+              backgroundColor: "#6a7985",
             },
-            xAxis: {
-                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+          },
+        },
+        legend: {
+          data: ["邮件营销", "联盟广告", "视频广告", "直接访问", "搜索引擎"],
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {},
+          },
+        },
+        grid: {
+          left: "3%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true,
+        },
+        xAxis: [
+          {
+            type: "category",
+            boundaryGap: false,
+            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+          },
+        ],
+        yAxis: [
+          {
+            type: "value",
+          },
+        ],
+        series: [
+          {
+            name: "邮件营销",
+            type: "line",
+            stack: "总量",
+            areaStyle: {},
+            data: [120, 132, 101, 134, 90, 230, 210],
+          },
+          {
+            name: "联盟广告",
+            type: "line",
+            stack: "总量",
+            areaStyle: {},
+            data: [220, 182, 191, 234, 290, 330, 310],
+          },
+          {
+            name: "视频广告",
+            type: "line",
+            stack: "总量",
+            areaStyle: {},
+            data: [150, 232, 201, 154, 190, 330, 410],
+          },
+          {
+            name: "直接访问",
+            type: "line",
+            stack: "总量",
+            areaStyle: {},
+            data: [320, 332, 301, 334, 390, 330, 320],
+          },
+          {
+            name: "搜索引擎",
+            type: "line",
+            stack: "总量",
+            label: {
+              normal: {
+                show: true,
+                position: "top",
+              },
             },
-            yAxis: {},
-            series: [{
-                name: '销量',
-                type: 'bar',
-                data: [5, 20, 36, 10, 10, 20]
-            }]
-		};
-		//使用刚指定的配置项和数据显示图表
-		myChart.setOption(options);
-	  }
+            areaStyle: {},
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+          },
+        ],
+      };
+      //使用刚指定的配置项和数据显示图表
+      myChart.setOption(options);
+    },
   },
 };
 </script>

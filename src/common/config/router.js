@@ -28,8 +28,8 @@ let routes = [
                 meta: { title: '商品列表' }
             },
             {
-                component: 'shop/pic/list',
-                meta: { title: '相册列表' }
+                component: 'image/index',
+                meta: { title: '相册管理' }
             }
         ]
     },

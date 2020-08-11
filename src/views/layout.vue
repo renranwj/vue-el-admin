@@ -29,8 +29,8 @@
             <template slot="title">
               <el-avatar :size="25" :src="circleUrl" style="margin-right:10px;"></el-avatar>renran
             </template>
-            <el-menu-item index="2-1">修改</el-menu-item>
-            <el-menu-item index="2-2">退出</el-menu-item>
+            <el-menu-item index="5-1">修改</el-menu-item>
+            <el-menu-item index="5-2">退出</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-header>
@@ -49,18 +49,18 @@
           </el-menu>
         </el-aside>
         <!-- 主布局 -->
-        <el-main style="padding: 0;" class="bg-light">
+        <el-main style="padding: 0;position:relative;" class="bg-light">
           <!-- 面包屑导航 -->
           <div
             class="bread bg-white"
-            
+			style="width: 100%;border-bottom: 1px solid #e6e6e6;padding-left:20px;"
           >
-            <el-breadcrumb separator-class="el-icon-arrow-right" style="width: 100%;border-bottom: 1px solid #e6e6e6; ">
+            <el-breadcrumb separator-class="el-icon-arrow-right" >
               <el-breadcrumb-item
                 v-for="(item, index) in bread"
                 :key="index"
                 :to="{ path: item.path }"
-                style="padding: 15px;"
+                style="padding: 15px 0;"
               >{{item.title}}</el-breadcrumb-item>
             </el-breadcrumb>
           </div>
@@ -142,6 +142,12 @@ export default {
     // 监听点击的是哪一个导航
     //头部导航监听
     handleSelect(key, keyPath) {
+      if(key === '5-1') {
+        return console.log('修改');
+      }
+      if(key === '5-2') {
+        return console.log('退出');
+      }
       this.navBar.active = key;
       this.sliderMenuActive = "0";
       //默认跳转到当前激活的那一个
