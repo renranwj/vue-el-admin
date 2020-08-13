@@ -53,9 +53,9 @@
           <!-- 面包屑导航 -->
           <div
             class="bread bg-white"
-			style="width: 100%;border-bottom: 1px solid #e6e6e6;padding-left:20px;"
+            style="width: 100%;border-bottom: 1px solid #e6e6e6;padding-left:20px;"
           >
-            <el-breadcrumb separator-class="el-icon-arrow-right" >
+            <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item
                 v-for="(item, index) in bread"
                 :key="index"
@@ -66,8 +66,8 @@
           </div>
 
           <!-- 主要内容 -->
-          	<router-view></router-view>
-          	<el-backtop target=".el-main" :bottom="100">
+          <router-view></router-view>
+          <el-backtop target=".el-main" :bottom="100">
             <div
               style="{
 						height: 100%;
@@ -99,6 +99,9 @@ export default {
         "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
     };
   },
+  beforeCreate() {
+    this.$router.push({ name: "index" });
+  },
   created() {
     //初始化菜单
     this.navBar = this.$conf.navBar;
@@ -107,12 +110,12 @@ export default {
     this.getRouteBrea();
 
     // 初始化导航
-    this.__initNavBar();
+    // this.__initNavBar();
   },
   watch: {
     //  监听路由变化
     $route(to, from) {
-	  this.getRouteBrea();
+      this.getRouteBrea();
       //本地存储
       localStorage.setItem(
         "navActive",
@@ -130,7 +133,7 @@ export default {
         //  console.log(val)
       },
       get() {
-		//   console.log(this.navBar.list[this.navBar.active].subActive)
+        //   console.log(this.navBar.list[this.navBar.active].subActive)
         return this.navBar.list[this.navBar.active].subActive || "0";
       },
     },
@@ -142,14 +145,14 @@ export default {
     // 监听点击的是哪一个导航
     //头部导航监听
     handleSelect(key, keyPath) {
-      if(key === '5-1') {
-        return console.log('修改');
+      if (key === "5-1") {
+        return console.log("修改");
       }
-      if(key === '5-2') {
-        return console.log('退出');
+      if (key === "5-2") {
+        return console.log("退出");
       }
       this.navBar.active = key;
-      this.sliderMenuActive = "0";
+      // this.sliderMenuActive = "0";
       //默认跳转到当前激活的那一个
       this.$router.push({
         name: this.sliderMenu[this.sliderMenuActive].pathName,
@@ -158,6 +161,7 @@ export default {
     //侧边导航监听
     slideSelect(key, keyPath) {
       //   this.navBar.list[this.navBar.active].subActive = key;
+
       this.sliderMenuActive = key;
       // console.log(this.sliderMenu[key].pathName)
       //跳转到指定页面
