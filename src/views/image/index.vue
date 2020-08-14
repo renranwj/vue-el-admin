@@ -22,6 +22,13 @@
           ></el-input>
           <el-button type="success" size="mini">搜索</el-button>
         </div>
+        <el-button type="warning" size="mini" @click="unChoose" v-if="chooseList.length">取消选中</el-button>
+        <el-button
+          type="danger"
+          size="mini"
+          @click="delImage({all:true})"
+          v-if="chooseList.length"
+        >批量删除</el-button>
         <el-button type="success" size="mini" @click="openAlbumModel(false)">创建相册</el-button>
         <el-button type="warning" size="mini" @click="uploadModel=true">上传图片</el-button>
       </el-header>
@@ -88,7 +95,7 @@
                         icon="el-icon-delete"
                         size="mini"
                         style="margin:0;"
-                        @click="delImage(index)"
+                        @click="delImage({index})"
                       ></el-button>
                     </div>
                   </div>
@@ -98,7 +105,33 @@
           </el-main>
         </el-container>
       </el-container>
-      <el-footer>尾部</el-footer>
+      <el-footer class="border-top d-flex align-items-center" style="padding:0;">
+        <!-- 底部 -->
+
+        <!-- 左侧分页 -->
+        <div
+          style="width:200px;height:100%;flex-shrink:0;"
+          class="d-flex justify-content-center align-items-center border-right"
+        >
+          <el-button-group>
+            <el-button size="mini">上一页</el-button>
+            <el-button size="mini">下一页</el-button>
+          </el-button-group>
+        </div>
+
+        <!-- 右侧分页 -->
+        <div style="flex:1;padding-left:70px;">
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="[10, 20, 30, 40]"
+            :page-size="100"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="400"
+          ></el-pagination>
+        </div>
+      </el-footer>
     </el-container>
 
     <!-- 修改/创建相册 -->
@@ -158,6 +191,8 @@ import albumItem from "@/components/image/album-item";
 export default {
   data() {
     return {
+      //分页的默认显示
+      currentPage: 1,
       // 上传相片模态框
       uploadModel: false,
       // 图片预览模态框
@@ -222,7 +257,7 @@ export default {
           id: i,
           url:
             "http://tangzhe123-com.oss-cn-shenzhen.aliyuncs.com/public/5f153e9e5e7d7.jpg",
-          name: "图片2444",
+          name: "图片" + i,
           ischecked: false,
           checkOrder: 0,
         });
@@ -327,16 +362,30 @@ export default {
         });
       });
     },
-    //删除当前照片
-    delImage(index) {
-      this.$confirm("是否永久删除该图片?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-        center: true,
-      })
+    //删除当前照片 |  批量删除
+    delImage(obj) {
+      this.$confirm(
+        obj.all ? "是否删除选中图片?" : "是否删除该图片？",
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+          center: true,
+        }
+      )
         .then(() => {
-          this.imageList.splice(index, 1);
+          if (obj.all) {
+            //批量删除
+            //list 是排除掉选中的图片
+            let list = this.imageList.filter((item) => {
+              return !this.chooseList.some((img) => img.id === item.id);
+            });
+            this.imageList = list;
+            this.chooseList = [];
+          }
+          //直接删除
+          this.imageList.splice(obj.index, 1);
           this.$message({
             type: "success",
             message: "删除成功!",
@@ -361,13 +410,60 @@ export default {
         item.checkOrder = this.chooseList.length;
         //修改状态
         // 每次点击选中与不选中进行切换
-		item.ischecked = !item.ischecked;
-		return;
-	  }
-	  
-	//  取消选中
-		
+        item.ischecked = !item.ischecked;
+        // console.log(this.imageList)
+        return;
+      }
 
+      //  取消选中
+      //找到在chooseList中的索引，进行删除，若没有就是还没有选中
+      let i = this.chooseList.findIndex((v) => v.id === item.id);
+      if (i === -1) return;
+      //重新计算序号
+      let len = this.chooseList.length;
+      //取消选中中间部分
+      if (i + 1 < len) {
+        //重新计算imageList中的序号checkOrder
+        //只需要改变当前选中之后的checkOrder
+        for (let j = i; j < len; j++) {
+          let no = this.imageList.findIndex(
+            (v) => v.id === this.chooseList[j].id
+          );
+          if (no > -1) {
+            this.imageList[no].checkOrder--;
+          }
+        }
+      }
+      //   取消选中的正好是最后一个
+      this.chooseList.splice(i, 1);
+      //修改状态
+      item.ischecked = false;
+      //重置序号
+    },
+    // 取消选中
+    unChoose() {
+      this.imageList.forEach((item) => {
+        // findIndex 找到返回相应的索引，若没有返回-1
+        //找到所有选中的图片
+        let i = this.chooseList.findIndex((img) => {
+          return img.id === item.id;
+        });
+
+        if (i > -1) {
+          //取消选中样式，选中序号归零
+          item.ischecked = false;
+          item.checkOrder = 0;
+          //从chooseList中移除
+          this.chooseList.splice(i, 1);
+        }
+      });
+    },
+    // 分页方法
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
     },
   },
 };
