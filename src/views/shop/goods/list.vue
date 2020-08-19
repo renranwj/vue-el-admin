@@ -5,7 +5,9 @@
       <el-tab-pane :label="tab.name" v-for="(tab, tabI) in tabBars" :key="tabI">
         <button-search placeholder="要搜索的商品名称" @search="searchEvent" ref="buttonSearch">
           <template #left>
-            <el-button type="success" size="mini">发布商品</el-button>
+            <router-link :to="{name: 'shop_goods_create'}" style="margin-right:8px;">
+              <el-button type="success" size="mini">发布商品</el-button>
+            </router-link>
             <el-button type="warning" size="mini">恢复商品</el-button>
             <el-button type="danger" size="mini">批量删除</el-button>
             <el-button size="mini">上架</el-button>
@@ -41,7 +43,7 @@
         <!-- 表格 -->
         <el-table
           :data="tableData[tabI].list"
-          style="width: 100%;margin-top:20px;"
+          style="width: 100%;margin-top:20px;margin-bottom:65px;"
           border
           @selection-change="handleSelectionChange"
         >
@@ -65,24 +67,29 @@
           <!-- 上架/下架 -->
           <el-table-column label="商品状态" align="center" width="120">
             <template slot-scope="scope">
+              <div class="d-flex flex-column align-items-center justify-content-center">
+                <el-button
+                  size="mini"
+                  type="success"
+                  plain
+                  @click="scope.row.ischeck = 1"
+                  style="margin-bottom:5px;"
+                >审核通过</el-button>
+                <el-button
+                  size="mini"
+                  type="danger"
+                  plain
+                  @click="scope.row.ischeck = 2"
+                  style="margin-left:0;"
+                >审核不通过</el-button>
+              </div>
+
               <!-- <el-button
                 size="mini"
                 :type="scope.row.status ? 'success' : 'danger'"
                 plain
                 @click="changeStatus(scope.row)"
               >{{scope.row.status ? '上架' : '下架'}}</el-button>-->
-              <el-button
-                size="mini"
-                type='success'
-                plain
-                @click="changeStatus(scope.row)"
-              >审核通过</el-button>
-			     <el-button
-                size="mini"
-                type='danger'
-                plain
-                @click="changeStatus(scope.row)"
-              >审核不通过</el-button>
             </template>
           </el-table-column>
           <el-table-column prop="stock" label="总库存" align="center"></el-table-column>
@@ -96,6 +103,20 @@
             </template>
           </el-table-column>
         </el-table>
+
+        <!-- 分页 -->
+        <div
+          class="block bg-white border-top d-flex align-items-center"
+          style="position:fixed;bottom:0;left:200px;right:0;height:60px;z-index:1000;"
+        >
+          <el-pagination
+            :current-page="tableData[tabI].currentIndex"
+            :page-sizes="[10, 20, 30, 40]"
+            :page-size="10"
+            :total="400"
+            layout="total, sizes, prev, pager, next, jumper"
+          ></el-pagination>
+        </div>
       </el-tab-pane>
     </el-tabs>
   </div>

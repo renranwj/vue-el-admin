@@ -172,6 +172,8 @@ export default {
     // 获取面包屑导航
     getRouteBrea() {
       //过滤掉没有name属性的
+      // console.log(this.$route)
+      // this.$route.matched一个数组，包含当前路由的所有嵌套路径片段的路由记录
       let b = this.$route.matched.filter((val) => val.name);
       let arr = [];
       b.forEach((item, index) => {

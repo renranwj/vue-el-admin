@@ -28,6 +28,13 @@ let routes = [
                 meta: { title: '商品列表' }
             },
             {
+                // path: '/shop/goods/list',
+                // name: 'list',
+                // component: () => import('../../views/shop/goods/list.vue'),
+                component: 'shop/goods/create',
+                meta: { title: '创建商品' }
+            },
+            {
                 component: 'image/index',
                 meta: { title: '相册管理' }
             }
