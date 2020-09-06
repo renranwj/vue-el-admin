@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white px-3">
+  <div class="bg-white px-3" style="position:absolute;top:45px;right:0;bottom:0;left:0;">
     <!-- tabs 标签页 -->
     <el-tabs v-model="tabIndex" @tab-click="handleClick" style="margin:0 10px;">
       <el-tab-pane :label="tab.name" v-for="(tab, tabI) in tabBars" :key="tabI">

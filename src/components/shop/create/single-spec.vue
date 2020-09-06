@@ -6,7 +6,7 @@
           :value="oprice"
           @input="vModel('oprice', $event)"
           type="number"
-          style="width:30%;"
+          style="width:30%;min-width:100px;"
         >
           <template slot="append">元</template>
         </el-input>
