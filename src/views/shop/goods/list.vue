@@ -207,7 +207,7 @@ export default {
     // 监听多选变化
     handleSelectionChange(val) {
       this.multipleSelection = val;
-      //   console.log(val);
+        console.log(val);
     },
     // 删除当前商品
     delItem(index) {

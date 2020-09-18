@@ -2,8 +2,7 @@
   <div>
     <div class="d-flex align-items-center">
       <!-- 左边 -->
-      <slot name="left">
-      </slot>
+      <slot name="left"></slot>
       <!-- 右边 -->
 
       <div style="margin-left:auto;" v-show="!superSearch">
@@ -33,9 +32,7 @@
         <el-button style="float: right; padding: 3px 0;" type="text" @click="closeSuperSearch">收起</el-button>
       </div>
       <!-- 表单 -->
-	  <slot name="form">
-
-	  </slot>
+      <slot name="form"></slot>
     </el-card>
   </div>
 </template>
@@ -50,18 +47,17 @@ export default {
   },
   data() {
     return {
-	  keyword: "",
-	  superSearch: false,
+      keyword: "",
+      superSearch: false,
     };
   },
   methods: {
-	  closeSuperSearch () {
-			this.superSearch = false;
-	  }
-  }
+    closeSuperSearch() {
+      this.superSearch = false;
+    },
+  },
 };
 </script>
 
 <style scoped lang="less">
-
 </style>
