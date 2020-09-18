@@ -1,5 +1,5 @@
 <template>
-  <div id="index">
+  <div id="index" style="position:absolute;top:10px;right:0;bottom:0;left:0;">
     <!-- 数据统计 -->
     <el-row :gutter="20">
       <el-col :span="6" v-for="(item, index) in count" :key="index">
