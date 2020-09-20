@@ -96,11 +96,12 @@ export default {
       navBar: [],
       bread: [],
       circleUrl:
-        "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+        "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+
     };
   },
   beforeCreate() {
-    this.$router.push({ name: "index" });
+    // this.$router.push({ name: "index" });
   },
   created() {
     //初始化菜单
@@ -110,7 +111,7 @@ export default {
     this.getRouteBrea();
 
     // 初始化导航
-    // this.__initNavBar();
+    this.__initNavBar();
   },
   watch: {
     //  监听路由变化
@@ -133,7 +134,7 @@ export default {
         //  console.log(val)
       },
       get() {
-        //   console.log(this.navBar.list[this.navBar.active].subActive)
+          console.log(this.navBar.list[this.navBar.active].subActive)
         return this.navBar.list[this.navBar.active].subActive || "0";
       },
     },
@@ -197,7 +198,7 @@ export default {
     //初始化导航
     __initNavBar() {
       let activeNav = JSON.parse(localStorage.getItem("navActive"));
-      //   console.log(activeNav.sliderActive)
+        console.log(activeNav)
 
       if (activeNav) {
         this.sliderMenuActive = activeNav.left;

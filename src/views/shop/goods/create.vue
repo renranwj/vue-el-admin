@@ -4,7 +4,7 @@
       <el-button size="mini">回到商品列表</el-button>
     </router-link>
 
-    <div class="bg-white px-3">
+    <div class="bg-white px-3" style="position:absolute;left:0;top:47px;right:0;bottom:0;overflow:auto;">
       <el-tabs @tab-click="handleClick" v-model="tabIndex" style="margin:0 10px;">
         <!-- 基础设置 -->
         <el-tab-pane label="基础设置">
@@ -30,8 +30,10 @@
 
             <!-- 多规格 -->
             <template v-else>
-				<!-- 规格卡片 -->
+              <!-- 规格卡片 -->
+              <el-form-item label="添加规格">
               <spec-card></spec-card>
+              </el-form-item>
               <el-form-item label="批量设置">
                 <el-button type="text">销售价</el-button>
                 <el-button type="text">成本价</el-button>

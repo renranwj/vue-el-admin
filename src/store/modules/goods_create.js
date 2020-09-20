@@ -55,9 +55,8 @@ export default {
         },
 
         //规格卡片排序
-        sortSpecCard (state, index) {
-            //上移
-            $util.moveUp(state.spec_card, index)
+        sortSpecCard (state, {action, index}) {
+            $util[action](state.spec_card, index);
         }
 
     },
