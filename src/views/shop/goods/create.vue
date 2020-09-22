@@ -4,7 +4,10 @@
       <el-button size="mini">回到商品列表</el-button>
     </router-link>
 
-    <div class="bg-white px-3" style="position:absolute;left:0;top:47px;right:0;bottom:0;overflow:auto;">
+    <div
+      class="bg-white px-3"
+      style="position:absolute;left:0;top:47px;right:0;bottom:0;overflow:auto;"
+    >
       <el-tabs @tab-click="handleClick" v-model="tabIndex" style="margin:0 10px;">
         <!-- 基础设置 -->
         <el-tab-pane label="基础设置">
@@ -26,13 +29,21 @@
             <!-- 单规格 -->
             <template v-if="spec_type === 0">
               <single-spec></single-spec>
+              
             </template>
-
+            
             <!-- 多规格 -->
             <template v-else>
               <!-- 规格卡片 -->
               <el-form-item label="添加规格">
-              <spec-card></spec-card>
+                <spec-card
+                  v-for="(item, index) in spec_card"
+                  :key="index"
+                  :index="index"
+                  :item="item"
+                  :spec_card="spec_card"
+                ></spec-card>
+                <el-button type="success" style="margin-top: 20px;margin-left:70px;" @click="addSpecCard">添加规格</el-button>
               </el-form-item>
               <el-form-item label="批量设置">
                 <el-button type="text">销售价</el-button>
@@ -59,29 +70,30 @@
 import { mapState, mapMutations } from "vuex";
 import baseCreate from "@/components/shop/create/base-create";
 import singleSpec from "@/components/shop/create/single-spec";
-import specCard from '@/components/shop/create/spec/spec-card';
+import specCard from "@/components/shop/create/spec/spec-card";
 
 export default {
   data() {
     return {
       //当前是第几个tab页
-      tabIndex: 0,
+      tabIndex: 0
     };
   },
   components: {
     baseCreate,
-	singleSpec,
-	specCard,
+    singleSpec,
+    specCard
   },
   computed: {
     //通过扩展运算符，映射
     ...mapState({
-      spec_type: (state) => state.goods_create.spec_type,
-    }),
+      spec_type: state => state.goods_create.spec_type,
+      spec_card: state => state.goods_create.spec_card
+    })
   },
   mounted() {},
   methods: {
-    ...mapMutations(["vModelState"]),
+    ...mapMutations(["vModelState","addSpecCard",]),
     // 修改form的数据
     vModel(key, value) {
       this.vModelState({ key, value });
@@ -89,8 +101,8 @@ export default {
     handleClick(tab, event) {
       // console.log(this.tabIndex);
     },
-    onSubmit() {},
-  },
+    onSubmit() {}
+  }
 };
 </script>
 

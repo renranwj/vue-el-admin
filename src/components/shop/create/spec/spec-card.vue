@@ -3,8 +3,11 @@
     <div
       class="card"
       style="line-height:20px;margin-bottom:10px;"
+<<<<<<< HEAD
       v-for="(item, index) in spec_card"
       :key="index"
+=======
+>>>>>>> db25851ebab607e02b0bf9af38041fba108c1cb0
     >
       <div class="card-header d-flex align-items-center">
         规格项：
@@ -45,6 +48,7 @@
       <div class="card-body">
         <!-- 规格属性列表 -->
         <div class="d-flex align-items-center flex-wrap">
+<<<<<<< HEAD
           <div
             class="py-2 px-2 mr-3 mb-2 border d-flex align-items-center"
             style="border-radius:5px;position:relative;"
@@ -70,6 +74,9 @@
               <i class="el-icon-circle-close"></i>
             </span>
           </div>
+=======
+          <spec-card-children :type="item.type"></spec-card-children>
+>>>>>>> db25851ebab607e02b0bf9af38041fba108c1cb0
         </div>
         <!-- 增加规格值 -->
         <div>
@@ -77,16 +84,22 @@
         </div>
       </div>
     </div>
+<<<<<<< HEAD
     <el-button type="success" style="margin-top: 20px;margin-left:70px;" @click="addSpecCard">添加规格</el-button>
+=======
+    
+>>>>>>> db25851ebab607e02b0bf9af38041fba108c1cb0
   </div>
 </template>
 
 <script>
+import specCardChildren from "./spec-card-children";
 import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {};
   },
+<<<<<<< HEAD
   computed: {
     ...mapState({
       spec_card: state => state.goods_create.spec_card
@@ -95,6 +108,19 @@ export default {
   methods: {
     ...mapMutations([
       "addSpecCard",
+=======
+  components: {
+    specCardChildren
+  },
+  props: {
+	  index: Number,
+	  item: Object,
+	  spec_card: Array
+  },
+  methods: {
+    ...mapMutations([
+      
+>>>>>>> db25851ebab607e02b0bf9af38041fba108c1cb0
       "deleSpecCard",
       "vModelCard",
       "sortSpecCard"
