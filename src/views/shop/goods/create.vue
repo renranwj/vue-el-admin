@@ -87,7 +87,7 @@ export default {
       this.vModelState({ key, value });
     },
     handleClick(tab, event) {
-      console.log(this.tabIndex);
+      // console.log(this.tabIndex);
     },
     onSubmit() {},
   },

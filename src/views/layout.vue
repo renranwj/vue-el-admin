@@ -134,7 +134,7 @@ export default {
         //  console.log(val)
       },
       get() {
-          console.log(this.navBar.list[this.navBar.active].subActive)
+          // console.log(this.navBar.list[this.navBar.active].subActive)
         return this.navBar.list[this.navBar.active].subActive || "0";
       },
     },
@@ -146,7 +146,7 @@ export default {
     // 监听点击的是哪一个导航
     //头部导航监听
     handleSelect(key, keyPath) {
-      if (key === "5-1") {
+      if (key === "5-1") {  
         return console.log("修改");
       }
       if (key === "5-2") {
@@ -198,7 +198,7 @@ export default {
     //初始化导航
     __initNavBar() {
       let activeNav = JSON.parse(localStorage.getItem("navActive"));
-        console.log(activeNav)
+        // console.log(activeNav)
 
       if (activeNav) {
         this.sliderMenuActive = activeNav.left;
