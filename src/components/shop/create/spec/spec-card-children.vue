@@ -4,15 +4,14 @@
       class="py-2 px-2 mr-3 mb-2 border d-flex align-items-center"
       style="border-radius:5px;position:relative;"
     >
-      <div v-if="item.type != 0">
+      <div v-if="type != 0">
         <!-- 颜色选择器 -->
-        <el-color-picker size="mini" v-if="item.type === 1"></el-color-picker>
+        <el-color-picker size="mini" v-if="type === 1"></el-color-picker>
         <!-- 图片选择器 -->
         <span class="btn btn-light mr-2 border" v-else>
           <i class="el-icon-plus"></i>
         </span>
       </div>
-
       <input
         type="text"
         value="内容"
@@ -32,6 +31,10 @@
 <script>
 export default {
   name: "spec-card-children",
+  props: {
+      type: Number,
+      require: true
+  },
   data() {
     return {};
   },
