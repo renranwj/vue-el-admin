@@ -4,6 +4,8 @@
       <el-button size="mini">回到商品列表</el-button>
     </router-link>
 
+
+
     <div
       class="bg-white px-3"
       style="position:absolute;left:0;top:47px;right:0;bottom:0;overflow:auto;"
@@ -29,9 +31,8 @@
             <!-- 单规格 -->
             <template v-if="spec_type === 0">
               <single-spec></single-spec>
-              
             </template>
-            
+
             <!-- 多规格 -->
             <template v-else>
               <!-- 规格卡片 -->
@@ -43,7 +44,11 @@
                   :item="item"
                   :spec_card="spec_card"
                 ></spec-card>
-                <el-button type="success" style="margin-top: 20px;margin-left:70px;" @click="addSpecCard">添加规格</el-button>
+                <el-button
+                  type="success"
+                  style="margin-top: 20px;margin-left:70px;"
+                  @click="addSpecCard"
+                >添加规格</el-button>
               </el-form-item>
               <el-form-item label="批量设置">
                 <el-button type="text">销售价</el-button>
@@ -91,9 +96,14 @@ export default {
       spec_card: state => state.goods_create.spec_card
     })
   },
-  mounted() {},
+  mounted() {
+	//监听拖拽的结束
+	this.$dragging.$on('dragend', (e) => {
+		console.log('结束', e)
+    })
+  },
   methods: {
-    ...mapMutations(["vModelState","addSpecCard",]),
+    ...mapMutations(["vModelState", "addSpecCard"]),
     // 修改form的数据
     vModel(key, value) {
       this.vModelState({ key, value });

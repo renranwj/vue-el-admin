@@ -14,13 +14,15 @@
       </div>
       <input
         type="text"
-        value="内容"
+        :value="item.name"
         style="width:80px;font-size:15px;text-align:center;"
         class="border-0"
+        @input="changeInput"
       />
       <span
         class="btn btn-light p-0"
         style="right:-10px;top:-10px;position:absolute;line-height:1;"
+        @click="delSpecCardValue({cardIndex, specIndex})"
       >
         <i class="el-icon-circle-close"></i>
       </span>
@@ -29,15 +31,32 @@
 </template>
  
 <script>
+import { mapMutations } from "vuex";
 export default {
   name: "spec-card-children",
   props: {
-      type: Number,
-      require: true
+    type: Number,
+    item: Object,
+    cardIndex: Number,
+    specIndex: Number
   },
   data() {
     return {};
   },
+  methods: {
+    ...mapMutations(["delSpecCardValue", "updateSpecCardValue"]),
+    changeInput (e) {
+      this.vModel('name', e.target.value)
+    },
+    vModel (key, value)　{
+      this.updateSpecCardValue({
+        cardIndex : this.cardIndex,
+        specIndex : this.specIndex,
+        key,
+        value
+      })
+    }
+  }
 };
 </script>
  

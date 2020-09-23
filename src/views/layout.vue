@@ -97,7 +97,6 @@ export default {
       bread: [],
       circleUrl:
         "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
-
     };
   },
   beforeCreate() {
@@ -122,10 +121,10 @@ export default {
         "navActive",
         JSON.stringify({
           top: this.navBar.active,
-          left: this.sliderMenuActive,
+          left: this.sliderMenuActive
         })
       );
-    },
+    }
   },
   computed: {
     sliderMenuActive: {
@@ -134,19 +133,19 @@ export default {
         //  console.log(val)
       },
       get() {
-          // console.log(this.navBar.list[this.navBar.active].subActive)
+        // console.log(this.navBar.list[this.navBar.active].subActive)
         return this.navBar.list[this.navBar.active].subActive || "0";
-      },
+      }
     },
     sliderMenu() {
       return this.navBar.list[this.navBar.active].submenu || [];
-    },
+    }
   },
   methods: {
     // 监听点击的是哪一个导航
     //头部导航监听
     handleSelect(key, keyPath) {
-      if (key === "5-1") {  
+      if (key === "5-1") {
         return console.log("修改");
       }
       if (key === "5-2") {
@@ -156,7 +155,7 @@ export default {
       // this.sliderMenuActive = "0";
       //默认跳转到当前激活的那一个
       this.$router.push({
-        name: this.sliderMenu[this.sliderMenuActive].pathName,
+        name: this.sliderMenu[this.sliderMenuActive].pathName
       });
     },
     //侧边导航监听
@@ -167,7 +166,7 @@ export default {
       // console.log(this.sliderMenu[key].pathName)
       //跳转到指定页面
       this.$router.push({
-        name: this.sliderMenu[key].pathName,
+        name: this.sliderMenu[key].pathName
       });
     },
     // 获取面包屑导航
@@ -175,7 +174,7 @@ export default {
       //过滤掉没有name属性的
       // console.log(this.$route)
       // this.$route.matched一个数组，包含当前路由的所有嵌套路径片段的路由记录
-      let b = this.$route.matched.filter((val) => val.name);
+      let b = this.$route.matched.filter(val => val.name);
       let arr = [];
       b.forEach((item, index) => {
         //过滤掉layout跟index（她两没有面包屑导航）
@@ -183,14 +182,14 @@ export default {
         arr.push({
           name: item.name,
           path: item.path,
-          title: item.meta.title,
+          title: item.meta.title
         });
       });
       if (arr.length > 0) {
         arr.unshift({
           name: "index",
           path: "/index",
-          title: "后台首页",
+          title: "后台首页"
         });
       }
       this.bread = arr;
@@ -198,14 +197,14 @@ export default {
     //初始化导航
     __initNavBar() {
       let activeNav = JSON.parse(localStorage.getItem("navActive"));
-        // console.log(activeNav)
+      // console.log(activeNav)
 
       if (activeNav) {
         this.sliderMenuActive = activeNav.left;
         this.navBar.active = activeNav.top;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

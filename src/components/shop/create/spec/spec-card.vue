@@ -1,14 +1,6 @@
 <template>
   <div>
-    <div
-      class="card"
-      style="line-height:20px;margin-bottom:10px;"
-<<<<<<< HEAD
-      v-for="(item, index) in spec_card"
-      :key="index"
-=======
->>>>>>> db25851ebab607e02b0bf9af38041fba108c1cb0
-    >
+    <div class="card" style="line-height:20px;margin-bottom:10px;">
       <div class="card-header d-flex align-items-center">
         规格项：
         <el-input
@@ -48,47 +40,27 @@
       <div class="card-body">
         <!-- 规格属性列表 -->
         <div class="d-flex align-items-center flex-wrap">
-<<<<<<< HEAD
-          <div
-            class="py-2 px-2 mr-3 mb-2 border d-flex align-items-center"
-            style="border-radius:5px;position:relative;"
-          >
-            <div v-if="item.type != 0">
-              <!-- 颜色选择器 -->
-              <el-color-picker size="mini" v-if="item.type === 1"></el-color-picker>
-              <!-- 图片选择器 -->
-              <span class="btn btn-light mr-2 border" v-else>
-                <i class="el-icon-plus"></i>
-              </span>
-            </div>
-            <input
-              type="text"
-              value="内容"
-              style="width:80px;font-size:15px;text-align:center;"
-              class="border-0"
-            />
-            <span
-              class="btn btn-light p-0"
-              style="right:-10px;top:-10px;position:absolute;line-height:1;"
-            >
-              <i class="el-icon-circle-close"></i>
-            </span>
-          </div>
-=======
-          <spec-card-children :type="item.type"></spec-card-children>
->>>>>>> db25851ebab607e02b0bf9af38041fba108c1cb0
+          <spec-card-children
+            :type="item.type"
+            v-for="(listItem, index2) in list"
+            :key="index2"
+            :item="listItem"
+            :cardIndex="index"
+            :specIndex="index2"
+            <!-- v-dragging="{ item: color, list: colors, group: 'color'} -->
+          ></spec-card-children>
         </div>
         <!-- 增加规格值 -->
         <div>
-          <el-button size="mini" type="text" icon="el-icon-plus">增加规格值</el-button>
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-plus"
+            @click="addSpecCardValue(index)"
+          >增加规格值</el-button>
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-    <el-button type="success" style="margin-top: 20px;margin-left:70px;" @click="addSpecCard">添加规格</el-button>
-=======
-    
->>>>>>> db25851ebab607e02b0bf9af38041fba108c1cb0
   </div>
 </template>
 
@@ -97,30 +69,21 @@ import specCardChildren from "./spec-card-children";
 import { mapState, mapMutations } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      list: this.item.list
+    };
   },
-<<<<<<< HEAD
-  computed: {
-    ...mapState({
-      spec_card: state => state.goods_create.spec_card
-    })
-  },
-  methods: {
-    ...mapMutations([
-      "addSpecCard",
-=======
   components: {
     specCardChildren
   },
   props: {
-	  index: Number,
-	  item: Object,
-	  spec_card: Array
+    index: Number,
+    item: Object,
+    spec_card: Array
   },
   methods: {
     ...mapMutations([
-      
->>>>>>> db25851ebab607e02b0bf9af38041fba108c1cb0
+      "addSpecCardValue",
       "deleSpecCard",
       "vModelCard",
       "sortSpecCard"
