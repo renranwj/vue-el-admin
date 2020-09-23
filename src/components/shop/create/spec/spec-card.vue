@@ -47,7 +47,6 @@
             :item="listItem"
             :cardIndex="index"
             :specIndex="index2"
-            <!-- v-dragging="{ item: color, list: colors, group: 'color'} -->
           ></spec-card-children>
         </div>
         <!-- 增加规格值 -->
