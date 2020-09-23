@@ -36,7 +36,9 @@ export default {
       require: true
   },
   data() {
-    return {};
+    return {
+      
+    };
   },
 };
 </script>
