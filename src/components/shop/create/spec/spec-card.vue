@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div
-      class="card"
-      style="line-height:20px;margin-bottom:10px;"
-    >
+    <div class="card" style="line-height:20px;margin-bottom:10px;">
       <div class="card-header d-flex align-items-center">
         规格项：
         <el-input
@@ -43,15 +40,26 @@
       <div class="card-body">
         <!-- 规格属性列表 -->
         <div class="d-flex align-items-center flex-wrap">
-          <spec-card-children :type="item.type"></spec-card-children>
+          <spec-card-children
+            :type="item.type"
+            v-for="(listItem, index2) in list"
+            :key="index2"
+            :item="listItem"
+            :cardIndex="index"
+            :specIndex="index2"
+          ></spec-card-children>
         </div>
         <!-- 增加规格值 -->
         <div>
-          <el-button size="mini" type="text" icon="el-icon-plus">增加规格值</el-button>
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-plus"
+            @click="addSpecCardValue(index)"
+          >增加规格值</el-button>
         </div>
       </div>
     </div>
-    
   </div>
 </template>
 
@@ -60,19 +68,21 @@ import specCardChildren from "./spec-card-children";
 import { mapState, mapMutations } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      list: this.item.list
+    };
   },
   components: {
     specCardChildren
   },
   props: {
-	  index: Number,
-	  item: Object,
-	  spec_card: Array
+    index: Number,
+    item: Object,
+    spec_card: Array
   },
   methods: {
     ...mapMutations([
-      
+      "addSpecCardValue",
       "deleSpecCard",
       "vModelCard",
       "sortSpecCard"

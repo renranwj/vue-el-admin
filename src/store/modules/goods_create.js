@@ -22,7 +22,19 @@ export default {
         spec_card: [{
             name: '颜色',
             type: 0, // 0 无，1 颜色，2 图片
-            list: []
+            list: [
+                {
+                    name: '红色',
+                    image: '',
+                    color: ''
+                },
+                {
+                    name: '黄色',
+                    image: '',
+                    color: ''
+                },
+
+            ]
         }]
     },
     getters: {
@@ -36,7 +48,6 @@ export default {
         }) {
             state[key] = value;
         },
-
         // 增加规格卡片
         addSpecCard(state) {
             state.spec_card.push({
@@ -45,7 +56,6 @@ export default {
                 list: []
             })
         },
-
         //删除规格卡片
         deleSpecCard(state, index) {
             state.spec_card.splice(index, 1);
@@ -58,15 +68,29 @@ export default {
         }) {
             state.spec_card[index][key] = value;
         },
-
         //规格卡片排序
         sortSpecCard(state, {
             action,
             index
         }) {
             $util[action](state.spec_card, index);
+        },
+        //增加指定规格卡片规格值
+        addSpecCardValue(state, index) {
+            state.spec_card[index].list.push({
+                name: '规格名称',
+                image: '',
+                color: ''
+            })
+        },
+        //删除指定规格卡片规格值
+        delSpecCardValue(state, { cardIndex, specIndex }) {
+            state.spec_card[cardIndex].list.splice(specIndex, 1);
+        },
+        //修改指定规格卡片规格值
+        updateSpecCardValue(state, {cardIndex, specIndex, key, value}) {
+            state.spec_card[cardIndex].list[specIndex][key] = value
         }
-
     },
     actions: {
 
