@@ -4,8 +4,6 @@
       <el-button size="mini">回到商品列表</el-button>
     </router-link>
 
-
-
     <div
       class="bg-white px-3"
       style="position:absolute;left:0;top:47px;right:0;bottom:0;overflow:auto;"
@@ -58,7 +56,9 @@
                 <el-button type="text">体积</el-button>
                 <el-button type="text">重量</el-button>
               </el-form-item>
-              <el-form-item label="规格设置">规格设置</el-form-item>
+              <el-form-item label="规格设置">
+                
+              </el-form-item>
             </template>
           </el-form>
         </el-tab-pane>
@@ -96,12 +96,7 @@ export default {
       spec_card: state => state.goods_create.spec_card
     })
   },
-  mounted() {
-	//监听拖拽的结束
-	this.$dragging.$on('dragend', (e) => {
-		console.log('结束', e)
-    })
-  },
+
   methods: {
     ...mapMutations(["vModelState", "addSpecCard"]),
     // 修改form的数据

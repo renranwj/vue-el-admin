@@ -20,7 +20,7 @@ export default {
 
         // 规格卡片
         spec_card: [{
-            name: '颜色',
+            name: '色调',
             type: 0, // 0 无，1 颜色，2 图片
             list: [
                 {
@@ -35,7 +35,46 @@ export default {
                 },
 
             ]
-        }]
+        },
+        {
+            name: '类型',
+            type: 0, // 0 无，1 颜色，2 图片
+            list: [
+                {
+                    name: '手持',
+                    image: '',
+                    color: ''
+                },
+                {
+                    name: '脚踏',
+                    image: '',
+                    color: ''
+                },
+                {
+                    name: '电动',
+                    image: '',
+                    color: ''
+                }
+            ]
+        },
+        {
+            name: '大小',
+            type: 0, // 0 无，1 颜色，2 图片
+            list: [
+                {
+                    name: 'L',
+                    image: '',
+                    color: ''
+                },
+                {
+                    name: 'XL',
+                    image: '',
+                    color: ''
+                },
+
+            ]
+        }
+    ]
     },
     getters: {
 
@@ -90,6 +129,11 @@ export default {
         //修改指定规格卡片规格值
         updateSpecCardValue(state, {cardIndex, specIndex, key, value}) {
             state.spec_card[cardIndex].list[specIndex][key] = value
+        },
+        //排序规格卡片的规格属性列表
+        sortSpecValue (state, {index, value}) {
+            state.spec_card[index].list = value;
+            // console.log(state.spec_card[index].list)
         }
     },
     actions: {

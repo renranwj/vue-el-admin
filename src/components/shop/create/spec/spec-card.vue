@@ -47,6 +47,7 @@
             :item="listItem"
             :cardIndex="index"
             :specIndex="index2"
+            v-dragging="{ item: listItem, list: list, group: `specItem${index}`}"
           ></spec-card-children>
         </div>
         <!-- 增加规格值 -->
@@ -80,12 +81,31 @@ export default {
     item: Object,
     spec_card: Array
   },
+  mounted() {
+    // 监听拖拽过程
+    //   this.$dragging.$on('dragged', ({ value }) => {
+    //   console.log(value.item)
+    //   console.log(value.list)
+    //   console.log(value.otherData)
+    // })
+    //监听拖拽的结束
+    this.$dragging.$on("dragend", e => {
+      // console.log("结束", e);
+      if (e.group === `specItem${index}`) {
+        this.sortSpecValue({
+          index: this.index,
+          value: this.list
+        });
+      }
+    });
+  },
   methods: {
     ...mapMutations([
       "addSpecCardValue",
       "deleSpecCard",
       "vModelCard",
-      "sortSpecCard"
+      "sortSpecCard",
+      "sortSpecValue"
     ]),
     vModel(key, index, value) {
       this.vModelCard({ key, index, value });

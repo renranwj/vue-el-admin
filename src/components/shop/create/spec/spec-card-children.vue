@@ -57,10 +57,14 @@ export default {
         key,
         value
       })
-    }
+    },
+    
   }
 };
 </script>
  
 <style scoped lang = "less">
+.spec-card-children {
+  cursor: pointer;
+}
 </style>
