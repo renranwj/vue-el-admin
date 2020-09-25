@@ -57,7 +57,9 @@
                 <el-button type="text">重量</el-button>
               </el-form-item>
               <el-form-item label="规格设置">
-                
+               <spec-table
+               
+               ></spec-table>
               </el-form-item>
             </template>
           </el-form>
@@ -76,7 +78,7 @@ import { mapState, mapMutations } from "vuex";
 import baseCreate from "@/components/shop/create/base-create";
 import singleSpec from "@/components/shop/create/single-spec";
 import specCard from "@/components/shop/create/spec/spec-card";
-
+import specTable from "@/components/shop/create/spec/spec-table"
 export default {
   data() {
     return {
@@ -87,7 +89,8 @@ export default {
   components: {
     baseCreate,
     singleSpec,
-    specCard
+    specCard,
+    specTable
   },
   computed: {
     //通过扩展运算符，映射

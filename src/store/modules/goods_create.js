@@ -20,64 +20,114 @@ export default {
 
         // 规格卡片
         spec_card: [{
-            name: '色调',
-            type: 0, // 0 无，1 颜色，2 图片
-            list: [
-                {
-                    name: '红色',
-                    image: '',
-                    color: ''
-                },
-                {
-                    name: '黄色',
-                    image: '',
-                    color: ''
-                },
+                name: '色调',
+                type: 0, // 0 无，1 颜色，2 图片
+                list: [{
+                        name: '红色',
+                        image: '',
+                        color: ''
+                    },
+                    {
+                        name: '黄色',
+                        image: '',
+                        color: ''
+                    },
 
-            ]
-        },
-        {
-            name: '类型',
-            type: 0, // 0 无，1 颜色，2 图片
-            list: [
-                {
-                    name: '手持',
-                    image: '',
-                    color: ''
-                },
-                {
-                    name: '脚踏',
-                    image: '',
-                    color: ''
-                },
-                {
-                    name: '电动',
-                    image: '',
-                    color: ''
-                }
-            ]
-        },
-        {
-            name: '大小',
-            type: 0, // 0 无，1 颜色，2 图片
-            list: [
-                {
-                    name: 'L',
-                    image: '',
-                    color: ''
-                },
-                {
-                    name: 'XL',
-                    image: '',
-                    color: ''
-                },
+                ]
+            },
+            {
+                name: '类型',
+                type: 0, // 0 无，1 颜色，2 图片
+                list: [{
+                        name: '手持',
+                        image: '',
+                        color: ''
+                    },
+                    {
+                        name: '脚踏',
+                        image: '',
+                        color: ''
+                    },
+                    {
+                        name: '电动',
+                        image: '',
+                        color: ''
+                    }
+                ]
+            },
+            {
+                name: '大小',
+                type: 0, // 0 无，1 颜色，2 图片
+                list: [{
+                        name: 'L',
+                        image: '',
+                        color: ''
+                    },
+                    {
+                        name: 'XL',
+                        image: '',
+                        color: ''
+                    },
 
-            ]
-        }
-    ]
+                ]
+            }
+        ],
+        ths: [{
+                name: "商品规格",
+                rowspan: 1,
+                colspan: 1,
+                width: ""
+            },
+            {
+                name: "sku图片",
+                rowspan: 2,
+                width: "60"
+            },
+            {
+                name: "销售价",
+                rowspan: 2,
+                width: "100"
+            },
+            {
+                name: "市场价",
+                rowspan: 2,
+                width: "100"
+            },
+            {
+                name: "成本价",
+                rowspan: 2,
+                width: "100"
+            },
+            {
+                name: "库存",
+                rowspan: 2,
+                width: "100"
+            },
+            {
+                name: "体积",
+                rowspan: 2,
+                width: "100"
+            },
+            {
+                name: "重量",
+                rowspan: 2,
+                width: "100"
+            },
+            {
+                name: "编码",
+                rowspan: 2,
+                width: "100"
+            },
+        ],
     },
     getters: {
-
+        //获取表头
+        tableThs(state) {
+            let len = state.spec_card.length
+            state.ths[0].colspan = len;
+            state.ths[0].rowspan = len > 0 ? 1 : 2;
+            return state.ths;
+        }
     },
     mutations: {
         //修改state
@@ -123,15 +173,26 @@ export default {
             })
         },
         //删除指定规格卡片规格值
-        delSpecCardValue(state, { cardIndex, specIndex }) {
+        delSpecCardValue(state, {
+            cardIndex,
+            specIndex
+        }) {
             state.spec_card[cardIndex].list.splice(specIndex, 1);
         },
         //修改指定规格卡片规格值
-        updateSpecCardValue(state, {cardIndex, specIndex, key, value}) {
+        updateSpecCardValue(state, {
+            cardIndex,
+            specIndex,
+            key,
+            value
+        }) {
             state.spec_card[cardIndex].list[specIndex][key] = value
         },
         //排序规格卡片的规格属性列表
-        sortSpecValue (state, {index, value}) {
+        sortSpecValue(state, {
+            index,
+            value
+        }) {
             state.spec_card[index].list = value;
             // console.log(state.spec_card[index].list)
         }
