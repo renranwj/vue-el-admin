@@ -26,18 +26,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>Otto</td>
-          <td>Otto</td>
+        <tr v-for="(item, index) in tableData" :key="index">
+          <th scope="row" v-for="(spec, specI) in item.spec" :key="specI">{{spec.name}}</th>
+          <td>{{item.image}}</td>
+          <td>{{item.oprice}}</td>
+          <td>{{item.pprice}}</td>
+          <td>{{item.cprice}}</td>
+          <td>{{item.weight}}</td>
+          <td>{{item.volume}}</td>
+          <td>{{item.stock}}</td>
+          <td>{{item.code}}</td>
         </tr>
       </tbody>
     </table>
@@ -50,14 +48,17 @@ export default {
   data() {
     return {};
   },
+  created() {
+    // console.log(this.tableData, this.tableData)
+  },
   computed: {
-    ...mapGetters(["tableThs"]),
+    ...mapGetters(["tableThs", "tableData"]),
     ...mapState({
-        "spec_card": state => state.goods_create.spec_card
+      spec_card: state => state.goods_create.spec_card
     })
   },
   mounted() {
-
+    console.log(this.tableData);
   }
 };
 </script>

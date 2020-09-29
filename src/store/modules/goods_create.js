@@ -127,6 +127,39 @@ export default {
             state.ths[0].colspan = len;
             state.ths[0].rowspan = len > 0 ? 1 : 2;
             return state.ths;
+        },
+        //获取规格表格数据
+        tableData(state) {
+            if (state.spec_card.length < 0) {
+                return [];
+            }
+            let specList = [];
+            for (let i = 0; i < state.spec_card.length; i++) {
+                if (state.spec_card[i].list.length === 0) {
+                    return []
+                }
+                specList.push(state.spec_card[i].list);
+            }
+            if (specList.length === 0) {
+                return []
+            }
+            // console.log(specList)
+            let arr = $util.cartesianProductOf(specList);
+            return arr.map( v => {
+                let obj = {
+                    spec: [],
+                    image: '',
+                    oprice: 0, //市场价格
+                    pprice: 0, //销售价格
+                    cprice: 0, //成本价格
+                    weight: 0, //重量
+                    volume: 0, //体积
+                    stock: 0,
+                    code: ''
+                }
+                obj.spec = v;
+                return obj;
+            })
         }
     },
     mutations: {

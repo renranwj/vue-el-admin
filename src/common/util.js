@@ -1,5 +1,5 @@
 export default {
-	// sku排列算法
+	// spec排列算法
 	cartesianProductOf() {
 		return Array.prototype.reduce.call(arguments,function(a, b) {
 			var ret = [];
