@@ -121,9 +121,14 @@ export default {
         ],
     },
     getters: {
+        specLable(state) {
+            return state.spec_card.filter(item => {
+                return item.list.length > 0
+            })
+        },
         //获取表头
-        tableThs(state) {
-            let len = state.spec_card.length
+        tableThs(state, getters) {
+            let len = getters.specLable.length
             state.ths[0].colspan = len;
             state.ths[0].rowspan = len > 0 ? 1 : 2;
             return state.ths;
@@ -135,27 +140,27 @@ export default {
             }
             let specList = [];
             for (let i = 0; i < state.spec_card.length; i++) {
-                if (state.spec_card[i].list.length === 0) {
-                    return []
+                if (state.spec_card[i].list.length > 0) {
+                   specList.push(state.spec_card[i].list);
                 }
-                specList.push(state.spec_card[i].list);
+                
             }
             if (specList.length === 0) {
                 return []
             }
             // console.log(specList)
-            let arr = $util.cartesianProductOf(specList);
+            let arr = $util.cartesianProductOf(...specList);
             return arr.map( v => {
                 let obj = {
                     spec: [],
-                    image: '',
+                    image: '图片',
                     oprice: 0, //市场价格
                     pprice: 0, //销售价格
                     cprice: 0, //成本价格
                     weight: 0, //重量
                     volume: 0, //体积
                     stock: 0,
-                    code: ''
+                    code: '0'
                 }
                 obj.spec = v;
                 return obj;

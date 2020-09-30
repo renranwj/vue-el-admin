@@ -5,7 +5,7 @@ export default {
 			var ret = [];
 			a.forEach(function(a) {
 				b.forEach(function(b) {
-					ret.push(a.concat([b]));
+					ret.push(a.concat(b));
 				});
 			});
 			return ret;

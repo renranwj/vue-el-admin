@@ -20,14 +20,14 @@
             style="vertical-align:middle;"
             rowspan="1"
             colspan="1"
-            v-for="(th, thi) in spec_card"
+            v-for="(th, thi) in specLable"
             :key="thi"
           >{{th.name}}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in tableData" :key="index">
-          <th scope="row" v-for="(spec, specI) in item.spec" :key="specI">{{spec.name}}</th>
+        <tr v-for="(item, index) in tableData" :key="index" class="text-center">
+          <th scope="row" v-for="(specM, specI) in item.spec" :key="specI">{{specM.name}}</th>
           <td>{{item.image}}</td>
           <td>{{item.oprice}}</td>
           <td>{{item.pprice}}</td>
@@ -52,7 +52,7 @@ export default {
     // console.log(this.tableData, this.tableData)
   },
   computed: {
-    ...mapGetters(["tableThs", "tableData"]),
+    ...mapGetters(["tableThs", "tableData", "specLable"]),
     ...mapState({
       spec_card: state => state.goods_create.spec_card
     })
