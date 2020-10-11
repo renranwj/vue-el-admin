@@ -26,16 +26,34 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in tableData" :key="index" class="text-center">
+        <tr v-for="(item, index) in list" :key="index" class="text-center">
           <th scope="row" v-for="(specM, specI) in item.spec" :key="specI">{{specM.name}}</th>
-          <td>{{item.image}}</td>
-          <td>{{item.oprice}}</td>
-          <td>{{item.pprice}}</td>
-          <td>{{item.cprice}}</td>
-          <td>{{item.weight}}</td>
-          <td>{{item.volume}}</td>
-          <td>{{item.stock}}</td>
-          <td>{{item.code}}</td>
+          <td width="110">
+            <span class="btn btn-light mr-2 border">
+              <i class="el-icon-plus"></i>
+            </span>
+          </td>
+          <td width="110">
+            <input type="number" v-model="item.oprice" class="form-control text-center"/>
+          </td>
+          <td width="110">
+            <input type="number" class="form-control text-center" v-model="item.pprice" />
+          </td>
+          <td width="110">
+            <input type="number" class="form-control text-center" v-model="item.cprice" />
+          </td>
+          <td width="110">
+            <input type="number" class="form-control text-center" v-model="item.weight" />
+          </td>
+          <td width="110">
+            <input type="number" class="form-control text-center" v-model="item.volume" />
+          </td>
+          <td width="110">
+            <input type="number" class="form-control text-center" v-model="item.stock" />
+          </td>
+          <td width="110">
+            <input type="text" class="form-control text-center" v-model="item.code" />
+          </td>
         </tr>
       </tbody>
     </table>
@@ -46,7 +64,9 @@
 import { mapGetters, mapState } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      list: []
+    };
   },
   created() {
     // console.log(this.tableData, this.tableData)
@@ -57,8 +77,14 @@ export default {
       spec_card: state => state.goods_create.spec_card
     })
   },
+  watch: {
+    tableData (newValue, oldValue) {
+      this.list = newValue;
+    }
+  },
   mounted() {
-    console.log(this.tableData);
+    // console.log(this.tableData);
+    this.list = this.tableData
   }
 };
 </script>
