@@ -7,7 +7,12 @@
       :class="{'active sum-active': active}"
     >
       {{item.name}}
-      <el-dropdown style="margin-left:auto;">
+      <span
+        class="btn btn-light border"
+        style="margin-left:auto;width:50px"
+        v-if="!select"
+      >{{item.num}}</span>
+      <el-dropdown style="margin-left:auto;" v-else>
         <span class="btn btn-light border">
           {{item.num}}
           <i class="el-icon-arrow-down el-icon--right"></i>
@@ -28,12 +33,18 @@ export default {
     index: Number,
     active: {
       type: Boolean,
-      default: false,
+      default: false
     },
+    select: {
+      type: Boolean,
+      required: false,
+      default: true
+    }
   },
   data() {
     return {};
   },
+  created() {}
 };
 </script>
 

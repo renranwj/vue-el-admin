@@ -8,7 +8,7 @@
         <!-- 颜色选择器 -->
         <el-color-picker size="mini" v-if="type === 1"></el-color-picker>
         <!-- 图片选择器 -->
-        <span class="btn btn-light mr-2 border" v-else>
+        <span class="btn btn-light mr-2 border" v-else @click="chooseImage">
           <i class="el-icon-plus"></i>
         </span>
       </div>
@@ -33,6 +33,8 @@
 <script>
 import { mapMutations } from "vuex";
 export default {
+  //依赖注入
+  inject: ['app'],
   name: "spec-card-children",
   props: {
     type: Number,
@@ -58,7 +60,11 @@ export default {
         value
       })
     },
-    
+    chooseImage () {
+      this.app.chooseImage((res) => {
+        console.log(res)
+      });
+    }
   }
 };
 </script>

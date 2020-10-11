@@ -18,23 +18,35 @@
         <div class="card-footer">尾部</div>
       </div>
     </div>-->
+
+    <image-dialog ref="imageDialog" :max="maxChooseList"></image-dialog>
   </div>
 </template>
 
 <script>
+import imageDialog from "@/components/image/image-dialog";
 export default {
-  name: "app",
   data() {
     return {
-      // radio: 6,
+      maxChooseList: ""
     };
   },
-  components: {},
-  methods: {
-    // change (e) {
-    // 	console.log(e);// 3 6 9
-    // }
+  // 依赖注入
+  provide() {
+    return {
+      app: this
+    };
   },
+  name: "app",
+  methods: {
+    chooseImage(callback, max = 9) {
+      this.maxChooseList = max;
+      this.$refs.imageDialog.chooseImage(callback);
+    }
+  },
+  components: {
+    imageDialog
+  }
 };
 </script>
 

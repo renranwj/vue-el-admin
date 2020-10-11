@@ -34,7 +34,7 @@
       </el-header>
       <el-container>
         <!-- 侧边 -->
-        <el-aside width="200px" style="background:#fff;" class="border-right">
+        <el-aside width="200px" style="background:#fff;height:80vh" class="border-right">
           <!-- 相册列表 -->
           <ul class="list-group list-group-flush">
             <album-item
