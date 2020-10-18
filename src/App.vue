@@ -28,7 +28,7 @@ import imageDialog from "@/components/image/image-dialog";
 export default {
   data() {
     return {
-      maxChooseList: ""
+      maxChooseList: 0
     };
   },
   // 依赖注入

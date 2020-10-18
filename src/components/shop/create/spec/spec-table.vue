@@ -29,12 +29,19 @@
         <tr v-for="(item, index) in list" :key="index" class="text-center">
           <th scope="row" v-for="(specM, specI) in item.spec" :key="specI">{{specM.name}}</th>
           <td width="110">
-            <span class="btn btn-light mr-2 border">
+            <span class="btn btn-light mr-2 border" v-if="!item.image" @click="chooseImage(item)">
               <i class="el-icon-plus"></i>
             </span>
+            <img
+              :src="item.image"
+              class="rounded"
+              @click="chooseImage(item)"
+              v-else
+              style="width:50px;height:50px;cursor:pointer;"
+            />
           </td>
           <td width="110">
-            <input type="number" v-model="item.oprice" class="form-control text-center"/>
+            <input type="number" v-model="item.oprice" class="form-control text-center" />
           </td>
           <td width="110">
             <input type="number" class="form-control text-center" v-model="item.pprice" />
@@ -63,13 +70,14 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 export default {
+  inject: ["app"],
   data() {
     return {
       list: []
     };
   },
   created() {
-    // console.log(this.tableData, this.tableData)
+    console.log(this.tableData)
   },
   computed: {
     ...mapGetters(["tableThs", "tableData", "specLable"]),
@@ -78,13 +86,20 @@ export default {
     })
   },
   watch: {
-    tableData (newValue, oldValue) {
+    tableData(newValue, oldValue) {
       this.list = newValue;
     }
   },
   mounted() {
     // console.log(this.tableData);
-    this.list = this.tableData
+    this.list = this.tableData;
+  },
+  methods: {
+    chooseImage(item) {
+      this.app.chooseImage(res => {
+          item.image = res[0].url
+      }, 1);
+    }
   }
 };
 </script>

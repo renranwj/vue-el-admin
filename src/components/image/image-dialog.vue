@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog title="标题" :visible.sync="imageModel" width="80%" top="5vh">
+    <el-dialog title="图片管理" :visible.sync="imageModel" width="80%" top="5vh">
       <el-container style="height:70vh; overflow:scroll;margin:-30px -20px;">
         <!-- 头部 -->
         <el-header class="d-flex align-items-center border-bottom">

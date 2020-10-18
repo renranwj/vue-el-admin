@@ -153,7 +153,7 @@ export default {
             return arr.map( v => {
                 let obj = {
                     spec: [],
-                    image: '图片',
+                    image: '',
                     oprice: 0, //市场价格
                     pprice: 0, //销售价格
                     cprice: 0, //成本价格

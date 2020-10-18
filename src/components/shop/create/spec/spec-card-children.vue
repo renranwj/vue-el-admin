@@ -8,9 +8,12 @@
         <!-- 颜色选择器 -->
         <el-color-picker size="mini" v-if="type === 1"></el-color-picker>
         <!-- 图片选择器 -->
-        <span class="btn btn-light mr-2 border" v-else @click="chooseImage">
-          <i class="el-icon-plus"></i>
-        </span>
+        <template v-else>
+          <span class="btn btn-light mr-2 border" v-if="!item.image" @click="chooseImage" >
+            <i class="el-icon-plus"></i>
+          </span>
+          <img :src="item.image" class="rounded" @click="chooseImage" v-else style="width:50px;height:50px;cursor:pointer;"/>
+        </template>
       </div>
       <input
         type="text"
@@ -34,7 +37,7 @@
 import { mapMutations } from "vuex";
 export default {
   //依赖注入
-  inject: ['app'],
+  inject: ["app"],
   name: "spec-card-children",
   props: {
     type: Number,
@@ -43,27 +46,29 @@ export default {
     specIndex: Number
   },
   data() {
-    return {
-      
-    };
+    return {};
   },
   methods: {
     ...mapMutations(["delSpecCardValue", "updateSpecCardValue"]),
-    changeInput (e) {
-      this.vModel('name', e.target.value)
+    changeInput(e) {
+      this.vModel("name", e.target.value);
     },
-    vModel (key, value)　{
+    vModel(key, value) {
       this.updateSpecCardValue({
-        cardIndex : this.cardIndex,
-        specIndex : this.specIndex,
+        cardIndex: this.cardIndex,
+        specIndex: this.specIndex,
         key,
         value
-      })
-    },
-    chooseImage () {
-      this.app.chooseImage((res) => {
-        console.log(res)
       });
+    },
+    chooseImage() {
+      this.app.chooseImage(res => {
+        if (Array.isArray(res)) {
+          // console.log(res[0].url);
+          this.vModel("image", res[0].url);
+          // console.log()
+        }
+      }, 1);
     }
   }
 };
